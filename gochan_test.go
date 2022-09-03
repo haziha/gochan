@@ -6,6 +6,14 @@ import (
 	"time"
 )
 
+func TestGoChan_Pop(t *testing.T) {
+	c := New[int](1)
+	c.Push(1)
+	//c.Close()
+	fmt.Println(c.Pop())
+	fmt.Println(c.Pop())
+}
+
 func TestGoChan_Len(t *testing.T) {
 	c := New[int](-1)
 	for i := 0; i < 100; i++ {

@@ -1,5 +1,6 @@
 package gochan
 
-func (gc *GoChan[T]) Pop() (val T) {
-	return <-gc.dataChan
+func (gc *GoChan[T]) Pop() (val T, ok bool) {
+	val, ok = <-gc.dataChan
+	return
 }
