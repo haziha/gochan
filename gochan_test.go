@@ -6,9 +6,15 @@ import (
 	"time"
 )
 
+func TestGoChan_Push(t *testing.T) {
+	c := New[int](0)
+	c.Close()
+	fmt.Println(c.Push(1))
+}
+
 func TestGoChan_Pop(t *testing.T) {
 	c := New[int](1)
-	c.Push(1)
+	_ = c.Push(1)
 	//c.Close()
 	fmt.Println(c.Pop())
 	fmt.Println(c.Pop())
@@ -17,7 +23,7 @@ func TestGoChan_Pop(t *testing.T) {
 func TestGoChan_Len(t *testing.T) {
 	c := New[int](-1)
 	for i := 0; i < 100; i++ {
-		c.Push(i)
+		_ = c.Push(i)
 	}
 	fmt.Println(c.Len())
 	for i := 0; i < 50; i++ {
@@ -28,7 +34,7 @@ func TestGoChan_Len(t *testing.T) {
 
 func TestGoChan_Close(t *testing.T) {
 	c := New[int](1)
-	c.Push(1)
+	_ = c.Push(1)
 	c.Close()
 	//c.Push(0)
 	fmt.Println(c.Pop())
@@ -40,19 +46,19 @@ func TestNew2(t *testing.T) {
 
 	go func() {
 		for i := 0; i < 10; i++ {
-			c.Push(i)
+			_ = c.Push(i)
 		}
 		fmt.Println("go 0 exit")
 	}()
 	go func() {
 		for i := 10; i < 20; i++ {
-			c.Push(i)
+			_ = c.Push(i)
 		}
 		fmt.Println("go 1 exit")
 	}()
 	go func() {
 		for i := -10; i < 0; i++ {
-			c.Push(i)
+			_ = c.Push(i)
 		}
 		fmt.Println("go 2 exit")
 	}()
@@ -68,19 +74,19 @@ func TestNew_cap10(t *testing.T) {
 
 	go func() {
 		for i := 0; i < 10; i++ {
-			c.Push(i)
+			_ = c.Push(i)
 		}
 		fmt.Println("go 0 exit")
 	}()
 	go func() {
 		for i := 10; i < 20; i++ {
-			c.Push(i)
+			_ = c.Push(i)
 		}
 		fmt.Println("go 1 exit")
 	}()
 	go func() {
 		for i := -10; i < 0; i++ {
-			c.Push(i)
+			_ = c.Push(i)
 		}
 		fmt.Println("go 2 exit")
 	}()
@@ -113,7 +119,7 @@ func TestNew_Cap0_2(t *testing.T) {
 	}()
 
 	for i := 0; i < 30; i++ {
-		c.Push(i)
+		_ = c.Push(i)
 		time.Sleep(time.Second)
 	}
 }
@@ -123,17 +129,17 @@ func TestNew_Cap0(t *testing.T) {
 
 	go func() {
 		for i := 0; i < 10; i++ {
-			c.Push(i)
+			_ = c.Push(i)
 		}
 	}()
 	go func() {
 		for i := 10; i < 20; i++ {
-			c.Push(i)
+			_ = c.Push(i)
 		}
 	}()
 	go func() {
 		for i := -10; i < 0; i++ {
-			c.Push(i)
+			_ = c.Push(i)
 		}
 	}()
 
@@ -148,11 +154,11 @@ func TestNew(t *testing.T) {
 		fmt.Println(c.Pop())
 	}()
 	time.Sleep(time.Second)
-	c.Push(1)
+	_ = c.Push(1)
 	time.Sleep(time.Second)
 }
 
 func TestNew_Deadlock(t *testing.T) {
 	c := New[int](0)
-	c.Push(1)
+	_ = c.Push(1)
 }
